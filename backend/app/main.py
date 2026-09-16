@@ -100,6 +100,10 @@ def telemetry_summary():
 import os as _os
 from fastapi.staticfiles import StaticFiles as _StaticFiles
 
-_DIST = _os.path.join(_os.path.dirname(__file__), "..", "..", "static")
-if _os.path.isdir(_DIST):
-    app.mount("/", _StaticFiles(directory=_DIST, html=True), name="spa")
+# Container layout: /app/app/main.py with SPA at /app/static (../static).
+# Repo layout: backend/app/main.py with SPA at repo root ../.. (dev only).
+for _cand in ("../static", "../../static"):
+    _p = _os.path.normpath(_os.path.join(_os.path.dirname(__file__), _cand))
+    if _os.path.isdir(_p):
+        app.mount("/", _StaticFiles(directory=_p, html=True), name="spa")
+        break
