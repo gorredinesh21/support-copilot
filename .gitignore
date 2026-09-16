@@ -1,5 +1,5 @@
 .cache/
-backend/data/index.json
+# index.json is committed so containers boot with a ready vector index
 backend/data/telemetry/*.jsonl
 !backend/data/telemetry/.gitkeep
 __pycache__/

@@ -94,3 +94,12 @@ def chat(req: ChatRequest):
 @app.get("/api/telemetry/summary")
 def telemetry_summary():
     return telemetry.summary()
+
+
+# Serve the built SPA (frontend/dist copied into the image) on the same origin.
+import os as _os
+from fastapi.staticfiles import StaticFiles as _StaticFiles
+
+_DIST = _os.path.join(_os.path.dirname(__file__), "..", "..", "static")
+if _os.path.isdir(_DIST):
+    app.mount("/", _StaticFiles(directory=_DIST, html=True), name="spa")

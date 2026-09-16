@@ -19,6 +19,16 @@ class EmbeddingError(RuntimeError):
 
 
 def _token() -> str:
+    # On GCP (Cloud Run/GCE): use the metadata server of the attached service account.
+    try:
+        r = requests.get(
+            "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token",
+            headers={"Metadata-Flavor": "Google"}, timeout=3)
+        if r.status_code == 200:
+            return r.json()["access_token"]
+    except requests.RequestException:
+        pass
+    # Local development: fall back to the gcloud CLI.
     out = subprocess.run(["gcloud", "auth", "print-access-token"],
                          capture_output=True, text=True, timeout=30)
     if out.returncode != 0:
