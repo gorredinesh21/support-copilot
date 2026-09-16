@@ -1,0 +1,48 @@
+// Support Copilot — operational dashboard queries (KQL)
+// Works unchanged against local ADX container or production App Insights
+// (map: CopilotTelemetry -> union requests, traces as applicable).
+
+// ── 1. Overall success rate by operation ─────────────────────────────
+CopilotTelemetry
+| summarize count(), success_rate = round(100.0 * countif(success) / count(), 1)
+    by name
+| order by count_ desc
+
+// ── 2. Latency: p50 / p95 per operation ─────────────────────────────
+CopilotTelemetry
+| summarize p50 = percentile(duration_ms, 50),
+            p95 = percentile(duration_ms, 95),
+            avg = round(avg(duration_ms))
+    by name
+
+// ── 3. Success rate trend (5-minute buckets) ─────────────────────────
+CopilotTelemetry
+| where name == "chat"
+| summarize ok = countif(success), total = count() by bin(time, 5m)
+| extend success_rate = round(100.0 * ok / total, 1)
+| render timechart
+
+// ── 4. Failure breakdown by resultCode ───────────────────────────────
+CopilotTelemetry
+| where success == false
+| summarize count() by resultCode, tostring(customDimensions.error)
+| top 10 by count_
+
+// ── 5. Top retrieved documents (what users actually ask about) ──────
+CopilotTelemetry
+| where name in ("chat", "search")
+| summarize count() by top_doc = tostring(customDimensions.top_doc)
+| top 10 by count_
+| render barchart
+
+// ── 6. No-answer / uncited answer rate (grounding quality) ──────────
+CopilotTelemetry
+| where name == "chat"
+| summarize total = count(),
+            uncited = countif(tobool(customDimensions.cited) == false)
+| extend no_answer_rate = round(100.0 * uncited / total, 1)
+
+// ── 7. Slowest individual operations (tail) ──────────────────────────
+CopilotTelemetry
+| top 20 by duration_ms desc
+| project time, name, duration_ms, success, question_len = customDimensions.question_len

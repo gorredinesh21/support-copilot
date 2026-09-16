@@ -1,0 +1,74 @@
+[
+ {
+  "q": "How do I deploy a web app to Azure App Service?",
+  "expected_doc": "azure-app-service-deploy"
+ },
+ {
+  "q": "Our App Service first request after idle is slow, how do I fix cold start?",
+  "expected_doc": "azure-app-service-cold-start"
+ },
+ {
+  "q": "How do I create an Azure AI Search index with vector search enabled?",
+  "expected_doc": "azure-ai-search-setup"
+ },
+ {
+  "q": "How does the semantic ranker work and how do I enable semantic answers?",
+  "expected_doc": "azure-ai-search-semantics"
+ },
+ {
+  "q": "User cannot sign in, error 50053 or 50126 in the logs",
+  "expected_doc": "entra-id-signin-failures"
+ },
+ {
+  "q": "VM scale set fails to scale out with allocation failure",
+  "expected_doc": "azure-vm-scale-failed"
+ },
+ {
+  "q": "Getting AuthorizationPermissionMismatch 403 on blob storage",
+  "expected_doc": "storage-403-errors"
+ },
+ {
+  "q": "Azure Function times out after 5 minutes, what are the limits?",
+  "expected_doc": "azure-functions-timeout"
+ },
+ {
+  "q": "Key Vault returns 403, how do access policies vs RBAC work?",
+  "expected_doc": "key-vault-access-policy"
+ },
+ {
+  "q": "Cosmos DB keeps returning 429 request rate too large",
+  "expected_doc": "cosmos-db-ru-429"
+ },
+ {
+  "q": "AKS node is NotReady, how do I fix it?",
+  "expected_doc": "aks-node-notready"
+ },
+ {
+  "q": "Names don't resolve across peered VNets",
+  "expected_doc": "vnet-peering-dns"
+ },
+ {
+  "q": "Show me KQL to find failed requests and p95 latency in App Insights",
+  "expected_doc": "app-insights-kql-basics"
+ },
+ {
+  "q": "Azure OpenAI is returning 429 errors",
+  "expected_doc": "openai-quota-429"
+ },
+ {
+  "q": "What is the Responsible AI checklist before launching an AI feature?",
+  "expected_doc": "responsible-ai-review"
+ },
+ {
+  "q": "What is the SLA and escalation path for a Sev1 incident?",
+  "expected_doc": "support-escalation-policy"
+ },
+ {
+  "q": "How do I improve RAG answer quality?",
+  "expected_doc": "rag-answer-quality"
+ },
+ {
+  "q": "Azure SQL deadlocks, how to diagnose and mitigate?",
+  "expected_doc": "sql-db-deadlocks"
+ }
+]

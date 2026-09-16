@@ -1,0 +1,21 @@
+services:
+  backend:
+    build: ./backend
+    ports: ["8000:8000"]
+    environment:
+      - GCP_PROJECT=${GCP_PROJECT:-homatri-503308}
+      - GCP_REGION=${GCP_REGION:-us-central1}
+    volumes:
+      - ./backend/data:/app/data
+      - ~/.config/gcloud:/root/.config/gcloud:ro
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+  kusto:
+    # Real Kusto query engine, local (optional; needs ~2GB RAM)
+    # docker compose --profile kusto up
+    image: mcr.microsoft.com/azuredataexplorer/kustainer-linux:latest
+    profiles: ["kusto"]
+    environment:
+      - ACCEPT_EULA=Y
+    mem_limit: 2g
+    ports: ["8080:8080"]

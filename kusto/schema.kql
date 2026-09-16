@@ -1,0 +1,20 @@
+// Support Copilot — Kusto schema + ingestion
+// Run against local ADX container (see README: docker compose --profile kusto up)
+// or against production ADX / App Insights with the same queries.
+
+// 1. Schema: mirrors the App-Insights-compatible JSONL exporter
+.create table CopilotTelemetry
+    (time: datetime,
+     name: string,
+     operation_Id: string,
+     traceId: string,
+     spanId: string,
+     success: bool,
+     duration_ms: int,
+     resultCode: int,
+     customDimensions: dynamic)
+
+// 2. Ingest the JSONL export (adjust path to your ingestion method:
+//    one-click blob ingest, or `python -m app.kusto_push` with azure-kusto-data)
+// .ingest into table CopilotTelemetry
+//   (h'https://<storage>/telemetry.jsonl' with (format='json'))
