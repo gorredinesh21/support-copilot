@@ -30,6 +30,12 @@ React (Vite) ──POST /api/chat──▶ FastAPI ──▶ embed question ─�
 - **KQL operational dashboard** — `kusto/dashboard.kql` runs unchanged against the local
   ADX/Kusto container or production App Insights.
 
+## Live demo
+
+**https://support-copilot-441384612427.us-central1.run.app** — hosted on Google Cloud Run
+(project `personal-project-dg21`, scale-to-zero, single container serving the React SPA + API).
+Ask it a support question; answers are grounded in the corpus with citations and live latency stats.
+
 ## Quickstart
 
 ```bash
