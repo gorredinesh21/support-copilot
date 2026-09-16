@@ -11,7 +11,7 @@ export default function App() {
   const endRef = useRef(null);
 
   useEffect(() => {
-    const tick = () => fetch(`${API}/healthz`).then(r => r.json()).then(setHealth).catch(() => setHealth(null));
+    const tick = () => fetch(`${API}/api/healthz`).then(r => r.json()).then(setHealth).catch(() => setHealth(null));
     tick();
     const id = setInterval(tick, 15000);
     return () => clearInterval(id);

@@ -32,7 +32,7 @@ def _index():
 _INDEX = None
 
 
-@app.get("/healthz")
+@app.get("/api/healthz")
 def healthz():
     try:
         n = len(_index().chunks)

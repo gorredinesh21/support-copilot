@@ -37,7 +37,7 @@ React (Vite) ──POST /api/chat──▶ FastAPI ──▶ embed question ─�
 cd backend
 pip install -r requirements.txt
 python -m app.ingest          # build the vector index (embeds corpus, disk-cached)
-uvicorn app.main:app --reload # http://localhost:8000  (GET /healthz)
+uvicorn app.main:app --reload # http://localhost:8000  (GET /api/healthz)
 
 # Frontend
 cd frontend
